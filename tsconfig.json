@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@mutation/*": ["./src/graphql/resolvers/mutation/*"],
+      "@query/*": ["./src/graphql/resolvers/query/*"],
+      "@graphql/*": ["./src/graphql/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@src/*": ["./src/*"]
+    },
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
