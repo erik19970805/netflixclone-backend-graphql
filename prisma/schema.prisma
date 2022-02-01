@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,43 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id       String @id @default(cuid()) @map("_id")
+  username String @unique
+  email    String @unique
+  password String
+  image    String
+  role     Role   @default(USER)
+}
+
+model Movie {
+  id          String  @id @default(cuid()) @map("_id")
+  title       String  @unique
+  description String
+  image       String
+  imageTitle  String
+  imageSmall  String
+  trailer     String
+  video       String
+  year        String
+  limit       Decimal
+  genre       String
+  isSeries    Boolean @default(false)
+  List        List?   @relation(fields: [listId], references: [id])
+  listId      String?
+}
+
+model List {
+  id      String  @id @default(cuid()) @map("_id")
+  title   String  @unique
+  type    String
+  genre   String
+  content Movie[]
 }
