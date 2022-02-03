@@ -1,6 +1,6 @@
-import schema1 from "@graphql/schema";
-import { ApolloServer } from "apollo-server";
-import dotenv from "dotenv";
+import schema1 from '@graphql/schema';
+import { ApolloServer } from 'apollo-server';
+import dotenv from 'dotenv';
 
 dotenv.config();
 

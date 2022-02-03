@@ -1,17 +1,17 @@
-import { GraphQLObjectType, GraphQLSchema } from "graphql";
+import { signIn, signUp } from '@mutation/auth';
+import { users } from '@query/user';
+import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 
-// Define QueryType
 const queryType = new GraphQLObjectType({
-  name: "QueryType",
-  description: "Queries",
-  fields: {},
+  name: 'QueryType',
+  description: 'Queries',
+  fields: { users },
 });
 
-// Define MutationType
 const mutationType = new GraphQLObjectType({
-  name: "MutationType",
-  description: "Mutations",
-  fields: {},
+  name: 'MutationType',
+  description: 'Mutations',
+  fields: { signIn, signUp },
 });
 
 const schema1: GraphQLSchema = new GraphQLSchema({

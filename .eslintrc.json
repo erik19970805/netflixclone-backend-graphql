@@ -10,7 +10,16 @@
     "sourceType": "module"
   },
   "plugins": ["import", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
   "settings": {
     "import/resolver": {
       "node": {
