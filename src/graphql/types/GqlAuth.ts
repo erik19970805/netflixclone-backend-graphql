@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString } from 'graphql';
-import { GqlUser, userFields } from './GqlUser';
+import { userFields } from './GqlUser';
 
 export const GqlSignUp = new GraphQLObjectType({
   name: 'SignUp',
@@ -10,5 +10,5 @@ export const GqlSignUp = new GraphQLObjectType({
 export const GqlSignIn = new GraphQLObjectType({
   name: 'SignIn',
   description: 'User login',
-  fields: { user: { type: GqlUser }, accessToken: { type: GraphQLString, description: 'Access token' } },
+  fields: { accessToken: { type: GraphQLString, description: 'Access token' } },
 });

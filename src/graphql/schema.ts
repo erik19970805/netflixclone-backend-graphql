@@ -1,22 +1,22 @@
-import { signIn, signUp } from '@mutation/auth';
-import { users } from '@query/user';
+import { signIn, signUp } from '@graphql/resolvers/auth';
+import { getUsers, getUser, deleteUser, updateUser } from '@graphql/resolvers/user';
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 
 const queryType = new GraphQLObjectType({
   name: 'QueryType',
   description: 'Queries',
-  fields: { users },
+  fields: { getUsers, getUser },
 });
 
 const mutationType = new GraphQLObjectType({
   name: 'MutationType',
   description: 'Mutations',
-  fields: { signIn, signUp },
+  fields: { signIn, signUp, updateUser, deleteUser },
 });
 
-const schema1: GraphQLSchema = new GraphQLSchema({
+const schema: GraphQLSchema = new GraphQLSchema({
   query: queryType,
   mutation: mutationType,
 });
 
-export default schema1;
+export default schema;

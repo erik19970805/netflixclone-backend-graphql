@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { User } from '@prisma/client';
 
 export interface IApolloServerContext {
-  prisma: PrismaClient;
+  currentUser: User | null;
 }

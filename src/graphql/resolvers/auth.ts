@@ -5,7 +5,6 @@ import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from 'graphql';
 import prisma from '@src/client';
 import { tokens } from '@src/config/env';
 import { User } from '@prisma/client';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { UserInputError } from 'apollo-server';
 import { GqlSignIn, GqlSignUp } from '@graphql/types/GqlAuth';
 import { userFields } from '@graphql/types/GqlUser';
@@ -22,11 +21,11 @@ export const signIn: GraphQLFieldConfig<unknown, IApolloServerContext, User> = {
   resolve: async (_, args) => {
     const { email } = args;
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) throw new Error('Wrong email or password!');
+    if (!user) throw new UserInputError('Wrong email or password!');
     const isMatch = await bcrypt.compare(args.password, user.password);
-    if (!isMatch) throw new Error('Wrong email or password!');
+    if (!isMatch) throw new UserInputError('Wrong email or password!');
     const accessToken = jwt.sign({ id: user.id }, tokens.accessToken, { expiresIn: '5d' });
-    return { user, accessToken };
+    return { accessToken };
   },
 };
 
@@ -38,16 +37,8 @@ export const signUp: GraphQLFieldConfig<unknown, IApolloServerContext, User> = {
     password: passwordField,
   },
   resolve: async (_, args) => {
-    try {
-      const { username, email, password: reqPassword } = args;
-      const hashPassword = await bcrypt.hash(reqPassword, 12);
-      return await prisma.user.create({ data: { username, email, password: hashPassword } });
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        const { message } = error;
-        throw new UserInputError(message);
-      }
-      return error;
-    }
+    const { username, email, password: reqPassword } = args;
+    const hashPassword = await bcrypt.hash(reqPassword, 12);
+    return prisma.user.create({ data: { username, email, password: hashPassword } });
   },
 };

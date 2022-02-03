@@ -8,6 +8,13 @@ export const userFields = {
   role: { type: GraphQLString, description: 'role of user' },
 };
 
+export const userFieldsUpdate = {
+  username: { type: GraphQLString, description: 'username of the user' },
+  email: { type: GraphQLString, description: 'email of the user' },
+  image: { type: GraphQLString, description: 'image of the user' },
+  role: { type: GraphQLString, description: 'role of user' },
+};
+
 export const GqlUser = new GraphQLObjectType({
   name: 'User',
   description: 'A user',
