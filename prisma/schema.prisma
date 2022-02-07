@@ -13,7 +13,7 @@ enum Role {
 }
 
 model User {
-  id       String  @id @default(cuid()) @map("_id")
+  id       String  @id @default(cuid())
   username String  @unique
   email    String  @unique
   password String
@@ -22,26 +22,26 @@ model User {
 }
 
 model Movie {
-  id          String  @id @default(cuid()) @map("_id")
-  title       String  @unique
-  description String
-  image       String
-  imageTitle  String
-  imageSmall  String
-  trailer     String
-  video       String
-  year        String
-  limit       Decimal
-  genre       String
-  isSeries    Boolean @default(false)
-  List        List?   @relation(fields: [listId], references: [id])
+  id          String   @id @default(cuid())
+  title       String   @unique
+  description String?
+  image       String?
+  imageTitle  String?
+  imageSmall  String?
+  trailer     String?
+  video       String?
+  year        String?
+  limit       Decimal?
+  genre       String?
+  isSeries    Boolean  @default(false)
+  List        List?    @relation(fields: [listId], references: [id])
   listId      String?
 }
 
 model List {
-  id      String  @id @default(cuid()) @map("_id")
+  id      String  @id @default(cuid())
   title   String  @unique
-  type    String
-  genre   String
+  type    String?
+  genre   String?
   content Movie[]
 }

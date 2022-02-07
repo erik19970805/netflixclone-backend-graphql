@@ -3,43 +3,43 @@ CREATE TYPE "Role" AS ENUM ('user', 'admin');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "_id" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "image" TEXT,
     "role" "Role" NOT NULL DEFAULT E'user',
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Movie" (
-    "_id" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
-    "imageTitle" TEXT NOT NULL,
-    "imageSmall" TEXT NOT NULL,
-    "trailer" TEXT NOT NULL,
-    "video" TEXT NOT NULL,
-    "year" TEXT NOT NULL,
-    "limit" DECIMAL(65,30) NOT NULL,
-    "genre" TEXT NOT NULL,
+    "description" TEXT,
+    "image" TEXT,
+    "imageTitle" TEXT,
+    "imageSmall" TEXT,
+    "trailer" TEXT,
+    "video" TEXT,
+    "year" TEXT,
+    "limit" DECIMAL(65,30),
+    "genre" TEXT,
     "isSeries" BOOLEAN NOT NULL DEFAULT false,
     "listId" TEXT,
 
-    CONSTRAINT "Movie_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "Movie_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "List" (
-    "_id" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "genre" TEXT NOT NULL,
+    "type" TEXT,
+    "genre" TEXT,
 
-    CONSTRAINT "List_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "List_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -55,4 +55,4 @@ CREATE UNIQUE INDEX "Movie_title_key" ON "Movie"("title");
 CREATE UNIQUE INDEX "List_title_key" ON "List"("title");
 
 -- AddForeignKey
-ALTER TABLE "Movie" ADD CONSTRAINT "Movie_listId_fkey" FOREIGN KEY ("listId") REFERENCES "List"("_id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Movie" ADD CONSTRAINT "Movie_listId_fkey" FOREIGN KEY ("listId") REFERENCES "List"("id") ON DELETE SET NULL ON UPDATE CASCADE;
