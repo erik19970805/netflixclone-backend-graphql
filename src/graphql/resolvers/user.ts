@@ -7,7 +7,12 @@ import { GraphQLFieldConfig, GraphQLList } from 'graphql';
 
 export const getUsers: GraphQLFieldConfig<unknown, IApolloServerContext> = {
   type: new GraphQLList(GqlUser),
-  resolve: async () => prisma.user.findMany(),
+  resolve: async (_, args, context) => {
+    const { currentUser } = context;
+    if (!currentUser) throw new AuthenticationError('Not authenticated');
+    if (currentUser.role !== 'admin') throw new AuthenticationError('You are not authorized');
+    return prisma.user.findMany();
+  },
 };
 
 export const getUser: GraphQLFieldConfig<unknown, IApolloServerContext, { id: string }> = {
